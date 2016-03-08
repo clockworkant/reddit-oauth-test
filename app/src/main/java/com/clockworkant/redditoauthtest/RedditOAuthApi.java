@@ -13,13 +13,23 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import rx.functions.Action1;
 
 public class RedditOAuthApi {
     private RedditOAuthApiService service;
     private String bearerToken;
     private static RedditOAuthApi redditOAuthApi;
+
     private RedditOAuthApi() {
-        //no instance
+        AuthtestApplication.getInstance()
+                .getPreferences()
+                .getAccessToken()
+                .subscribe(new Action1<String>() {
+                    @Override
+                    public void call(String accessToken) {
+                        bearerToken = accessToken;
+                    }
+        });
     }
 
     public static RedditOAuthApi getInstance(){
@@ -60,10 +70,6 @@ public class RedditOAuthApi {
         return bearerToken;
     }
 
-    public void setBearerToken(String bearerToken) {
-        this.bearerToken = bearerToken;
-    }
-
     public void getMultiReddits() {
         Call<ResponseBody> bodyCall = getService().getMyMultiReddits();
         bodyCall.enqueue(new Callback<ResponseBody>() {
@@ -79,7 +85,7 @@ public class RedditOAuthApi {
         });
     }
 
-    public void getImagesReddit(){
-        getService().getReddit("/user/DarkFlare/m/images")
+    public void getImagesReddit() {
+        getService().getReddit("/user/DarkFlare/m/images");
     }
 }

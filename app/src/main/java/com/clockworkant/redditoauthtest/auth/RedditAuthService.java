@@ -1,15 +1,14 @@
-package com.clockworkant.redditoauthtest;
+package com.clockworkant.redditoauthtest.auth;
 
-import okhttp3.ResponseBody;
-import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
+import rx.Observable;
 
-public interface RedditApiService {
+interface RedditAuthService {
     @FormUrlEncoded
     @POST("api/v1/access_token")
-    Call<AuthResponseModel> getToken(
+    Observable<AuthResponseModel> getToken(
             @Field("grant_type") String granttype,
             @Field("code") String code,
             @Field("redirect_uri") String redirectUri);

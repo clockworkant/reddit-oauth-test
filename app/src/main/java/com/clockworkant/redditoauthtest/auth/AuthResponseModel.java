@@ -1,8 +1,8 @@
-package com.clockworkant.redditoauthtest;
+package com.clockworkant.redditoauthtest.auth;
 
 import com.google.gson.annotations.SerializedName;
 
-public class AuthResponseModel {
+class AuthResponseModel {
     @SerializedName("access_token")
     public final String accessToken;
     @SerializedName("token_type")
