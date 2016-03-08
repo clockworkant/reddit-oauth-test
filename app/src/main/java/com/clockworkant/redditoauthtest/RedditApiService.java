@@ -9,7 +9,7 @@ import retrofit2.http.POST;
 public interface RedditApiService {
     @FormUrlEncoded
     @POST("api/v1/access_token")
-    Call<ResponseBody> getToken(
+    Call<AuthResponseModel> getToken(
             @Field("grant_type") String granttype,
             @Field("code") String code,
             @Field("redirect_uri") String redirectUri);

@@ -13,23 +13,25 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 class RedditApi {
     private RedditApiService service = null;
 
     void getToken(String code) {
-        Call<ResponseBody> authorization_code = getService().getToken(
+        Call<AuthResponseModel> authorization_code = getService().getToken(
                 "authorization_code",
                 code,
                 LoginActivity.REDIRECT_URI);
-        authorization_code.enqueue(new Callback<ResponseBody>() {
+        authorization_code.enqueue(new Callback<AuthResponseModel>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Log.d("reddit", "" + response.body());
+            public void onResponse(Call<AuthResponseModel> call, Response<AuthResponseModel> response) {
+                AuthResponseModel body = response.body();
+                RedditOAuthApi.getInstance().setBearerToken(body.accessToken);
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<AuthResponseModel> call, Throwable t) {
                 Log.e("reddit", "Error getting token", t);
             }
         });
@@ -55,7 +57,11 @@ class RedditApi {
                     })
                     .addInterceptor(interceptor)
                     .build();
-            Retrofit build = new Retrofit.Builder().client(client).baseUrl("https://www.reddit.com").build();
+            Retrofit build = new Retrofit.Builder()
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .client(client)
+                    .baseUrl("https://www.reddit.com")
+                    .build();
             service = build.create(RedditApiService.class);
         }
         return service;

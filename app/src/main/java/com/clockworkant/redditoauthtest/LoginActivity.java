@@ -1,9 +1,13 @@
 package com.clockworkant.redditoauthtest;
 
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -39,9 +43,8 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    public void authenticate(View view) {
-
-        webView.loadUrl("https://www.reddit.com/api/v1/authorize.compact?client_id=_sjPbsZBiWsTDw&response_type=code&state=1&redirect_uri=" + REDIRECT_URI + "&scope=mysubreddits save read&duration=permanent");
+    public void getMulti(View view) {
+        RedditOAuthApi.getInstance().getMultiReddits();
     }
 
 }
