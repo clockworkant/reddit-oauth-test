@@ -27,14 +27,6 @@
         android:layout_toRightOf="@id/btn_login"
         />
 
-    <TextView
-        android:id="@+id/text_access_token"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Access Token available"
-        android:layout_below="@+id/btn_login"
-        />
-
     <Button
         android:id="@+id/btn_getImagesMultireddit"
         android:layout_width="wrap_content"

@@ -19,9 +19,6 @@ import rx.subscriptions.CompositeSubscription;
 
 public class MainActivity extends AppCompatActivity {
 
-    @Bind(R.id.text_access_token)
-    TextView accessTokenLabel;
-
     @Bind(R.id.btn_login)
     Button loginButton;
 
@@ -61,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void call(String accessToken) {
                                 boolean hasAccessToken = !TextUtils.isEmpty(accessToken);
-                                accessTokenLabel.setVisibility(hasAccessToken ? View.VISIBLE : View.INVISIBLE);
                                 loginButton.setEnabled(!hasAccessToken);
                             }
                         }));
